@@ -1,0 +1,22 @@
+{
+  "name": "create-next-template",
+  "version": "1.0.0",
+  "description": "A simple CLI to create Next.js templates, with a few options",
+  "main": "index.js",
+  "bin": {
+    "create-next-template": "bin/index.js"
+  },
+  "keywords": [
+    "template",
+    "Next.js",
+    "npx",
+    "shadcn",
+    "salvaoo"
+  ],
+  "author": "@shadcn | @salvaoo",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^9.1.5",
+    "shelljs": "^0.8.5"
+  }
+}
