@@ -11,7 +11,7 @@
 You can run this CLI with `npx`, 
 
 ```bash
-npx @salvaoo/create-next-template
+npx @salvagr/create-next-template
 ```
 
 When you ran the command, you will be asked to choose between `pages` or `app` template. After that, you will be asked to choose a name for your project. The CLI will create a folder with the name you have chosen and download the template inside it.

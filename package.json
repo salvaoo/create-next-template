@@ -1,5 +1,5 @@
 {
-  "name": "create-next-template",
+  "name": "@salvagr/create-next-template",
   "version": "1.0.0",
   "description": "A simple CLI to create Next.js templates, with a few options",
   "main": "index.js",
