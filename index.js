@@ -1,25 +1,39 @@
 #!/usr/bin/env node
 
-const { exec } = require('shelljs');
+import pkg from 'shelljs';
+const { exec } = pkg;
+import prompts from 'prompts';
+import ora from 'ora';
+import chalk from "chalk";
+
+var logger = {
+  error(...args) {
+    console.log(chalk.red(...args));
+  },
+  warn(...args) {
+    console.log(chalk.yellow(...args));
+  },
+  info(...args) {
+    console.log(chalk.cyan(...args));
+  },
+  success(...args) {
+    console.log(chalk.green(...args));
+  }
+};
 
 const questions = [
    {
-      type: 'list',
+      type: 'select',
       name: 'templateType',
-      message: 'Do you want to create a Next.js project with a pages or app structure?',
+      message: 'What type of template do you want to generate?',
+      initial: 1,
       choices: [
-         {
-            name: 'Pages',
-            value: 'pages',
-         },
-         {
-            name: 'App',
-            value: 'app',
-         },
+         { title: 'Javascript', value: 'javascript' },
+         { title: 'TypeScript', value: 'typescript' },
       ],
    },
    {
-      type: 'input',
+      type: 'text',
       name: 'projectName',
       message: 'What is the name of your project?',
       validate: function (input) {
@@ -32,19 +46,33 @@ const questions = [
 ];
 
 async function main() {
-   const inquirer = await import('inquirer');
-   const { templateType, projectName } = await inquirer.default.prompt(questions);
+   logger.info('Welcome to the Next.js template generator!');
 
-
+   const { templateType, projectName } = await prompts(questions);
    const repoUrl =
-      templateType === 'pages'
-         ? 'https://github.com/shadcn/next-template.git'
-         : 'https://github.com/salvaoo/next-template.git';
+      templateType === 'typescript'
+         ? 'https://github.com/salvaoo/Next-template-typescript.git'
+         : 'https://github.com/salvaoo/Next-template-javascript.git';
 
-   exec(`git clone ${repoUrl} ${projectName}`);
-   exec(`cd ${projectName} && rm -rf .git`);
-
-   console.log("Project successfully created!");
+   const spinner = ora('Starting your project...').start();
+   exec(`git clone ${repoUrl} ${projectName} --quiet`, (error, stdout, stderr) => {
+      if (error) {
+         spinner.fail('Error cloning repository');
+         console.error(stderr);
+         return;
+      }
+      spinner.succeed('Project created');
+      spinner.start('Cleaning up repository...');
+      exec(`cd ${projectName} && rm -rf .git`, (error, stdout, stderr) => {
+         if (error) {
+            spinner.fail('Error cleaning up repository');
+            console.error(stderr);
+            return;
+         }
+         spinner.succeed('Repository cleaned up successfully');
+         logger.success("Project successfully created!");
+      });
+   });
 }
 
 main();
