@@ -1,22 +1,31 @@
 {
   "name": "@salvagr/create-next-template",
-  "version": "1.0.0",
-  "description": "A simple CLI to create Next.js templates, with a few options",
+  "version": "2.0.0",
+  "description": "A simple CLI to create Next.js template with a few options",
   "main": "index.js",
   "bin": {
     "create-next-template": "bin/index.js"
   },
+  "type": "module",
   "keywords": [
     "template",
     "Next.js",
     "npx",
-    "shadcn",
-    "salvaoo"
+    "shadcn-ui",
+    "javascript",
+    "typescript",
+    "react",
+    "tailwindcss"
   ],
-  "author": "@shadcn | @salvaoo",
+  "author": {
+    "name": "salvagr",
+    "url": "https://github.com/salvaoo/create-next-template"
+  },
   "license": "MIT",
   "dependencies": {
     "inquirer": "^9.1.5",
+    "ora": "^6.3.0",
+    "prompts": "^2.4.2",
     "shelljs": "^0.8.5"
   }
 }
